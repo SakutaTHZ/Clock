@@ -1,0 +1,182 @@
+@import url("https://fonts.googleapis.com/css2?family=Jersey+10&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Jersey 10", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  --bg-color: #111111;
+  --secondary-color: #481e14;
+  --highlight-color: #f2613f;
+  --text-color: #9b3922;
+  --trans: rgba(255, 255, 255, 0);
+
+  --border-size: 1px;
+  --clock-hand-width: 20px;
+}
+
+body {
+  background: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+  min-height: 100vh;
+}
+.textBackground {
+  width: 100vw;
+  height: 100vh;
+  padding: 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  background-clip: text;
+  background-image: radial-gradient(
+    var(--secondary-color),
+    var(--highlight-color),
+    var(--text-color)
+  );
+  color: transparent;
+}
+
+.inputBox {
+  width: 200px;
+  border: 10px solid var(--bg-color);
+  outline: 10px solid var(--highlight-color);
+  border-radius: 10px;
+}
+.inputBox > input {
+  width: 100%;
+  height: 30px;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+.Clock {
+  display: flex;
+  gap: 30px;
+}
+.seperator {
+}
+
+.ClockBox {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  aspect-ratio: 1/1.5;
+  /* background: var(--bg-color); */
+  border-radius: 20px;
+  border: 20px solid var(--trans);
+  outline: 10px solid var(--secondary-color);
+  overflow: hidden;
+}
+
+.hand {
+  position: absolute;
+  background: var(--secondary-color);
+  border: var(--border-size) solid var(--secondary-color);
+  border-radius: 30px;
+
+  transition: 0.5s ease-in-out;
+}
+
+.handc,
+.hand1,
+.hand4 {
+  width: calc(100% + (var(--border-size) * 2));
+  height: var(--clock-hand-width);
+}
+
+.handc {
+  transform: scale(0);
+}
+.handc.on {
+  transform: scale(1);
+}
+.hand1 {
+  top: calc(-1 * var(--border-size));
+  transform: translateY(-100%);
+}
+.hand1.on {
+  transform: translateY(0);
+}
+.hand4 {
+  bottom: calc(-1 * var(--border-size));
+  transform: translateY(100%);
+}
+.hand4.on {
+  transform: translateY(0);
+}
+
+.hand2,
+.hand3,
+.hand5,
+.hand6 {
+  width: var(--clock-hand-width);
+  height: calc(50% + (var(--border-size) + var(--border-size) / 2));
+  z-index: 2;
+}
+
+.hand2 {
+  top: calc(-1 * var(--border-size));
+  right: calc(-1 * var(--border-size));
+  transform: translateX(100%);
+}
+.hand2.on {
+  transform: translateX(0);
+}
+.hand3 {
+  bottom: calc(-1 * var(--border-size));
+  right: calc(-1 * var(--border-size));
+  transform: translateX(100%);
+}
+.hand3.on {
+  transform: translateX(0);
+}
+.hand5 {
+  bottom: calc(-1 * var(--border-size));
+  left: calc(-1 * var(--border-size));
+  transform: translateX(-100%);
+}
+.hand5.on {
+  transform: translateX(0);
+}
+.hand6 {
+  top: calc(-1 * var(--border-size));
+  left: calc(-1 * var(--border-size));
+  transform: translateX(-100%);
+}
+.hand6.on {
+  transform: translateX(0);
+}
+
+.bgClock {
+  position: fixed;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--text-color);
+}
+.fakeClock {
+  /* Set the background to a conic gradient */
+  background-image: conic-gradient(red, yellow, green);
+}
+
+@keyframes rotateGradient {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 360deg;
+    }
+  }
