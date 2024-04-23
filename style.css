@@ -11,9 +11,9 @@
 
 :root {
   --bg-color: #111111;
-  --secondary-color: #481e14;
-  --highlight-color: #f2613f;
-  --text-color: #9b3922;
+  --secondary-color: #a79277;
+  --highlight-color: #d1bb9e;
+  --text-color: #ead8c0;
   --trans: rgba(255, 255, 255, 0);
 
   --border-size: 1px;
@@ -28,6 +28,18 @@ body {
   flex-direction: column;
   gap: 30px;
   min-height: 100vh;
+  overflow: hidden;
+
+  animation: 20s hueRotate linear alternate infinite;
+}
+
+@keyframes hueRotate {
+  from {
+    filter: hue-rotate(00deg);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
 }
 .textBackground {
   width: 100vw;
@@ -60,10 +72,8 @@ body {
 .Clock {
   display: flex;
   gap: 30px;
-  
-  mix-blend-mode: difference;
-}
-.seperator {
+
+  mix-blend-mode: multiply;
 }
 
 .ClockBox {
@@ -73,7 +83,6 @@ body {
   align-items: center;
   width: 100px;
   aspect-ratio: 1/1.5;
-  /* background: var(--bg-color); */
   border-radius: 20px;
   border: 20px solid var(--trans);
   outline: 10px solid var(--secondary-color);
@@ -86,7 +95,7 @@ body {
   border: var(--border-size) solid var(--secondary-color);
   border-radius: 30px;
 
-  transition: 0.5s ease-in-out;
+  transition: 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 .handc,
@@ -172,8 +181,12 @@ body {
 .fakeClock {
   height: 300%;
   aspect-ratio: 1/1;
-  background: 
-    conic-gradient(from 0deg at center,var(--text-color)  0%, var(--highlight-color) 50%, var(--secondary-color) 100%),
+  background: conic-gradient(
+      from 0deg at center,
+      var(--text-color) 0%,
+      var(--highlight-color) 50%,
+      var(--secondary-color) 100%
+    ),
     radial-gradient(circle, transparent 70%, var(--secondary-color) 70%),
     radial-gradient(circle, transparent 70%, var(--highlight-color) 70%),
     radial-gradient(circle, transparent 70%, var(--text-color) 70%);
@@ -181,14 +194,49 @@ body {
   background-position: center center;
 
   animation: 60s rotateGradient linear infinite;
-  animation-delay: 0.5s;
 }
 
 @keyframes rotateGradient {
-    0% {
-      rotate: 0;
-    }
-    100% {
-      rotate: 360deg;
-    }
+  0% {
+    rotate: 0;
   }
+  100% {
+    rotate: 360deg;
+  }
+}
+
+.seperator {
+  position: relative;
+  width: var(--clock-hand-width);
+}
+.seperator::before {
+  content: "";
+  position: absolute;
+  top: var(--clock-hand-width);
+  width: 100%;
+  height: calc(var(--clock-hand-width) * 1.5);
+  background: var(--secondary-color);
+  border-radius: 10px;
+
+  animation: 1s blink linear alternate infinite;
+}
+.seperator::after {
+  content: "";
+  position: absolute;
+  bottom: var(--clock-hand-width);
+  width: 100%;
+  height: calc(var(--clock-hand-width) * 1.5);
+  background: var(--secondary-color);
+  border-radius: 10px;
+
+  animation: 1s blink linear alternate infinite;
+}
+
+@keyframes blink {
+  from {
+    background: var(--secondary-color);
+  }
+  to {
+    background: var(--highlight-color);
+  }
+}
