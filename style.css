@@ -60,6 +60,8 @@ body {
 .Clock {
   display: flex;
   gap: 30px;
+  
+  mix-blend-mode: difference;
 }
 .seperator {
 }
@@ -168,15 +170,25 @@ body {
   background: var(--text-color);
 }
 .fakeClock {
-  /* Set the background to a conic gradient */
-  background-image: conic-gradient(red, yellow, green);
+  height: 300%;
+  aspect-ratio: 1/1;
+  background: 
+    conic-gradient(from 0deg at center,var(--text-color)  0%, var(--highlight-color) 50%, var(--secondary-color) 100%),
+    radial-gradient(circle, transparent 70%, var(--secondary-color) 70%),
+    radial-gradient(circle, transparent 70%, var(--highlight-color) 70%),
+    radial-gradient(circle, transparent 70%, var(--text-color) 70%);
+  background-size: 100% 100%;
+  background-position: center center;
+
+  animation: 60s rotateGradient linear infinite;
+  animation-delay: 0.5s;
 }
 
 @keyframes rotateGradient {
     0% {
-      background-position: 0 0;
+      rotate: 0;
     }
     100% {
-      background-position: 360deg;
+      rotate: 360deg;
     }
   }
